@@ -87,7 +87,7 @@ print(score)
 
 var counter = 10
 counter = counter + 5
- //Puedes escribir este operador abreviado, agrega directamente al entero en cuestión
+//Puedes escribir este operador abreviado, agrega directamente al entero en cuestión
 
 counter += 5 //Hace lo mismo, pero menos escritura
 print(counter)
