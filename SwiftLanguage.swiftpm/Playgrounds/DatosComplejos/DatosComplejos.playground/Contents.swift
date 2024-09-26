@@ -89,3 +89,83 @@ print(cities.sorted()) //Estod devuelve la matriz con sus elementos en orden asc
 let presidents = ["Bush", "Obama", "Trump", "Biden"]
 let reversedPresidents = presidents.reversed()
 print(reversedPresidents)
+
+//2. Diccionarios
+
+//Has visto cómo las matrices son una excelente manera de almacenar datos que tienen un orden particular, como los días de la semana o las temperaturas de una ciudad. Pero muy a menudo acceder a los datos por su posición en la matriz puede ser molesto o incluso peligroso.
+
+//Por ejemplo, aquí hay una matriz que contiene los detalles de un empleado:
+
+var employee = ["Taylor Swift", "Singer", "Nashville"]
+
+print("Name: \(employee[0])")
+print("Job title: \(employee[1])")
+print("Location: \(employee[2])")
+
+//Pero eso tiene un par de problemas. En primer lugar, no se puede estar realmente seguro de que esa employee[2]sea su ubicación; tal vez esa sea su contraseña. En segundo lugar, no hay garantía de que el elemento 2 esté allí, en particular porque convertimos la matriz en una variable. Este tipo de código causaría serios problemas:
+
+print("Name: \(employee[0])")
+employee.remove(at: 1)
+print("Job title: \(employee[1])")
+//print("Location: \(employee[2])")
+
+//Eso ahora imprime Nashville como el título del puesto, lo cual es incorrecto y provocará que nuestro código se bloquee cuando lea employee[2], lo cual es simplemente malo .
+
+//Swift tiene una solución para ambos problemas, llamada diccionarios . Los diccionarios no almacenan elementos según su posición como lo hacen las matrices, sino que nos permiten decidir dónde se deben almacenar los elementos.
+
+let employee2 = [
+    "name": "Taylor Swift",
+    "job": "Singer",
+    "location": "Nashville"
+]
+
+//Como puedes ver, ahora estamos siendo muy claros: el nombre es Taylor Swift, el trabajo es Singer y la ubicación es Nashvill
+
+//Para leer datos de un diccionario simplemente se utiliza las mismas claves que se utilizó para crearlo
+print(employee2["name"])
+print(employee2["job"])
+print(employee2["location"])
+
+//Si intentas hacer eso en un área de juegos, verás que Xcode muestra varias advertencias como “Expresión implícitamente forzada de 'Cadena?' a 'Cualquiera'”. Peor aún, si miras la salida de tu área de juegos, verás que imprime Optional("Taylor Swift")en lugar de simplemente Taylor Swift: ¿qué pasa?
+
+//Todo esto es código Swift válido, pero estamos intentando leer claves de diccionario que no tienen un valor asociado a ellas.
+
+//Los opcionales son un tema bastante complejo que cubriremos en detalle más adelante, pero por ahora le mostraré un enfoque más simple: al leer un diccionario, puede proporcionar un valor predeterminado para usar si la clave no existe.
+
+//De esta forma
+print(employee2["name", default: "Unknown"])
+
+//Se pueden utilizar otros tipos de datos para cualquiera de ellos. Por ejemplo, podríamos hacer un seguimiento de los estudiantes que se han graduado de la escuela utilizando cadenas para los nombres y valores booleanos para su estado de graduación:
+
+let hasGraduated = [
+    "Eric": false,
+    "Maeve": true,
+    "Otis": false,
+]
+
+//O podríamos hacer un seguimiento de los años en que se celebraron los Juegos Olímpicos junto con sus ubicaciones:
+
+let olympics = [
+    2012: "London",
+    2016: "Rio de Janeiro",
+    2021: "Tokyo"
+]
+
+print(olympics[2012, default: "Unknown"])
+
+//También puedes crear un diccionario vacío usando cualquier tipo explícito que quieras almacenar y luego configurar las claves una por una:
+
+var heights = [String: Int]() //Observe cómo debemos escribir [String: Int]
+heights["Yao Ming"] = 229
+heights["Shaquille O'Neal"] = 216
+heights["LeBron James"] = 206
+
+//Como cada elemento del diccionario debe existir en una clave específica, los diccionarios no permiten que existan claves duplicadas. En cambio, si establece un valor para una clave que ya existe, Swift sobrescribirá el valor anterior.
+
+var archEnemies = [String: String]()
+archEnemies["Batman"] = "The Joker"
+archEnemies["Superman"] = "Lex Luthor"
+
+archEnemies["Batman"] = "Penguin"
+
+//Finalmente, al igual que las matrices y otros tipos de datos que hemos visto hasta ahora, los diccionarios vienen con algunas funciones útiles que querrás usar en el futuro, count y removeAll()ambas existen para los diccionarios y funcionan igual que para os arrays.

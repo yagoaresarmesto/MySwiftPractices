@@ -51,7 +51,7 @@ print(numbers.reversed())
  Usa append() para agregar tres notas (por ejemplo, 8.5, 9.0, 7.3).
  Calcula e imprime la media de las notas sumándolas y dividiéndolas por la cantidad de elementos.
  Elimina todas las notas usando removeAll() y verifica si el array está vacío usando .isEmpty.
-*/
+ */
 
 var studentGrades = [Double]()
 studentGrades.append(8.5)
