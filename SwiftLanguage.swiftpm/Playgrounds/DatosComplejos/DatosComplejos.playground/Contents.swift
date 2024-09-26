@@ -66,7 +66,7 @@ albums2.append("Red")
 print(albums.count)
 
 //En segundo lugar, puedes eliminar elementos de una matriz utilizando remove(at:)para eliminar un elemento en un índice específico o removeAll()para eliminar todo:
- var characters = ["Lana", "Pam" , "Ray", "Sterling"]
+var characters = ["Lana", "Pam" , "Ray", "Sterling"]
 print(characters.count) //Imprimirá 4
 
 characters.remove(at: 2) //Imprimirá 3
