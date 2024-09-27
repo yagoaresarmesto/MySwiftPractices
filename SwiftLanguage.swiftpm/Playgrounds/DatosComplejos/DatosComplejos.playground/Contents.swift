@@ -169,3 +169,73 @@ archEnemies["Superman"] = "Lex Luthor"
 archEnemies["Batman"] = "Penguin"
 
 //Finalmente, al igual que las matrices y otros tipos de datos que hemos visto hasta ahora, los diccionarios vienen con algunas funciones útiles que querrás usar en el futuro, count y removeAll()ambas existen para los diccionarios y funcionan igual que para os arrays.
+
+
+//Sets
+//Existe una tercera forma muy común de agrupar datos, llamada conjunto . Son similares a los arrays, excepto que no puedes agregar elementos duplicados y no almacenan sus elementos en un orden particular.
+
+//La creacions es simple:
+let people = Set(["Denzel Washington", "Tom Cruise", "Nicolas Cage", "Samuel L Jackson"])
+
+//Recuerde que el set eliminará de forma automatica los valores duplicados y no recuerda el orden exacto que se uso en el array
+
+print(people)
+
+//La segunda diferencia importante al agregar elementos a un conjunto se puede ver cuando se agregan elementos individualmente. Aquí está el código:
+
+var people = Set<String>()
+
+people.insert("Denzel Washington")
+people.insert("Tom Cruise")
+people.insert("Nicolas Cage")
+people.insert("Samuel Jackson")
+
+//Enums
+
+//Una enumeración (abreviatura de enumeration ) es un conjunto de valores con nombre que podemos crear y usar en nuestro código. No tienen ningún significado especial para Swift, pero son más eficientes y seguras, por lo que las usará mucho en su código.
+
+//Para demostrar el problema, supongamos que queremos escribir un código que permita al usuario seleccionar un día de la semana. Por ejemplo:
+
+var selected = "Monday"
+
+selected = "Tuesday"
+
+selected = "January"
+
+selected = "Friday " //--> Escribimos un espacio al final, que a ojos de swift es diferente
+
+//El uso de cadenas para este tipo de cosas requiere una programación muy cuidadosa, pero también es bastante ineficiente: ¿realmente necesitamos almacenar todas las letras de “viernes” para seguir un solo día?
+
+//Aquí es donde entran en juego las enumeraciones: nos permiten definir un nuevo tipo de datos con un puñado de valores específicos que puede tener. Piensa en un booleano, que solo puede tener verdadero o falso; no puedes configurarlo como "tal vez" o "probablemente", porque ese no está en el rango de valores que entiende. Las enumeraciones son lo mismo: podemos enumerar por adelantado el rango de valores que puede tener, y Swift se asegurará de que nunca cometas un error al usarlas.
+
+//Entonces, podríamos reescribir nuestros días de la semana en una nueva enumeración como esta:
+
+enum Weekday {
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+}
+
+//Esto es una enumaración Weekday y proporciona 5 casos para manejar los 5 días de la semana
+//Para usaralas simplemente
+
+var day = Weekday.monday
+day = Weekday.tuesday
+day = Week.friday
+
+print(day)
+
+//Con ese cambio, no puedes usar accidentalmente "viernes" con un espacio adicional ni poner el nombre de un mes en su lugar; siempre debes elegir uno de los días posibles que aparecen en la enumeración. Incluso verás que Swift ofrece todas las opciones posibles cuando hayas escrito Weekday., porque sabe que vas a seleccionar uno de los casos.
+
+//Swift hace dos cosas que hacen que las enumeraciones sean un poco más fáciles de usar. Primero, cuando tienes muchos casos en una enumeración, puedes escribir caseuna sola vez y luego separar cada caso con una coma:
+
+enum Weekday {
+    case monday, tuesday, wednesday, thursday, friday
+}
+
+//puedes omitir el nombre de la enumeración después de la primera asignación, de esta manera:
+
+var day = Weekday.monday
+day = .thursday //Ya sabe que hace referencia a weekday
