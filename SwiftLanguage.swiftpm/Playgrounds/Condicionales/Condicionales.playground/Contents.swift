@@ -1,6 +1,6 @@
 import UIKit
 
-//Condcionales (if)
+//Condcionales (if), simple
 
 //Swift maneja estos problemas con if instrucciones que nos permiten verificar una condición y ejecutar código si la condición es verdadera. Tienen el siguiente aspecto:
 
