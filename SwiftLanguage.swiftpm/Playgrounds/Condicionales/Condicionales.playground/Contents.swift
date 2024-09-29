@@ -227,3 +227,82 @@ if transport == .airplane || transport == .helicopter {
  Si la primera condición falla (si el modo de transporte no es .airplaneó .helicopter), se ejecuta la segunda condición: ¿el modo de transporte es .bicycle? Si es así, se imprime “Espero que haya una ciclovía…”.
  Si no vamos en bicicleta, comprobamos si vamos en coche. Si es así, aparece impreso el mensaje “Es hora de quedarse atrapado en el tráfico”.
  Finalmente si todas las condiciones anteriores fallan entonces elsese ejecuta el bloque, y significa que vamos en scooter.*/
+
+
+//Switch
+
+//Puedes usar ify else ifrepetidamente para verificar las condiciones tantas veces como quieras, pero se vuelve un poco difícil de leer. Por ejemplo, si tuviéramos un pronóstico del tiempo de una enumeración, podríamos elegir qué mensaje imprimir en función de una serie de condiciones, como esto:
+
+enum Weather {
+    case sun, rain, wind, snow, unknown
+}
+
+let forecast = Weather.sun
+
+if forecast == .sun {
+    print("It should be a nice day.")
+} else if forecast == .rain {
+    print("Pack an umbrella.")
+} else if forecast == .wind {
+    print("Wear something warm")
+} else if forecast == .rain {
+    print("School is cancelled.")
+} else {
+    print("Our forecast generator is broken!")
+}
+
+//Eso funciona, pero tiene problemas:
+
+//Tenemos que seguir escribiendo forecast, aunque cada vez comprobamos lo mismo.
+//Lo verifiqué accidentalmente .raindos veces, aunque la segunda verificación nunca puede ser verdadera porque la segunda verificación solo se realiza si la primera falló.
+//No lo he comprobado .snowen absoluto, por lo que nos falta funcionalidad.
+
+//En este caso podemos remplazar todos estos if, else if por esto:
+
+switch forecast {
+case .sun:
+    print("It should be a nice day.")
+case .rain:
+    print("Pack an umbrella.")
+case .wind:
+    print("Wear something warm")
+case .snow:
+    print("School is cancelled.")
+case .unknown:
+    print("Our forecast generator is broken!")
+}
+
+//Incluso por ejemplo, podríamos cambiar una cadena que contenga el nombre de un lugar:
+
+let place = "Metropolis"
+
+switch place {
+case "Gotham":
+    print("You're Batman!")
+case "Mega-City One":
+    print("You're Judge Dredd!")
+case "Wakanda":
+    print("You're Black Panther!")
+default: //Este default:es el caso predeterminado, que se ejecutará si todos los casos no coinciden.
+    print("Who are you?")
+}
+//Por ejemplo, hay una famosa canción navideña llamada Los doce días de Navidad, y a medida que avanza la canción, se van acumulando más y más regalos sobre una persona desafortunada que, aproximadamente en el sexto día, tiene la casa bastante llena.
+
+//Podríamos hacer una aproximación simple de esta canción usando fallthrough. Primero, así es como se vería el código sin fallthrough :
+
+let day = 5
+print("My true love gave to me…")
+
+switch day {
+case 5:
+    print("5 golden rings")
+case 4:
+    print("4 calling birds")
+case 3:
+    print("3 French hens")
+case 2:
+    print("2 turtle doves")
+default:
+    print("A partridge in a pear tree")
+}
+
