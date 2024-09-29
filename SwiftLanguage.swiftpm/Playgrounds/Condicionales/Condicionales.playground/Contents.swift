@@ -121,3 +121,109 @@ if username.isEmpty == true {
 if username.isEmpty {
     username = "Anonymous"
 }
+
+//Multiples condiciones
+
+//Cuando usamos ifSwift, debemos proporcionarle algún tipo de condición que será verdadera o falsa una vez que se haya evaluado. Si desea verificar varios valores diferentes, puede colocarlos uno después del otro de esta manera:
+
+let age1 = 16
+
+if age1 >= 18 {
+    print("You can vote in the next election.")
+}
+
+if age1 < 18 {
+    print("Sorry, you're too young to vote.")
+}
+
+//Sin embargo, si lo piensas bien, eso no es muy eficiente: nuestras dos condiciones son mutuamente excluyentes, porque si alguien es mayor o igual a 18 (la primera condición), entonces no puede ser menor que 18 (la segunda condición), y lo opuesto también es cierto. Estamos haciendo que Swift haga un trabajo que simplemente no es necesario.
+
+//En esta situación, Swift nos proporciona una condición más avanzada que nos permite agregar un elsebloque a nuestro código: un código para ejecutar si la condición no es verdadera.
+
+//Usando esto elsepodríamos reescribir nuestro código anterior a esto:
+
+if age1 >= 18 {
+    print("You can vote in the next election.")
+} else {
+    print("Sorry, you're too young to vote.")
+}
+
+//Existe una condición aún máselse if avanzada llamada , que le permite ejecutar una nueva verificación si la primera falla. Puede tener solo una de estas si lo desea, o tener múltiples else if, e incluso combinarlas else ifcon una elsesi es necesario. Sin embargo, solo puede tener una else, porque eso significa "si todas las demás condiciones han sido falsas"
+
+let a = false
+let b = true
+
+if a {
+    print("Code to run if a is true")
+} else if b {
+    print("Code to run if a is false but b is true")
+} else {
+    print("Code to run if both a and b are false")
+}
+
+//Puedes seguir agregando más y más else ifcondiciones si lo deseas, ¡pero ten cuidado de que tu código no se complique demasiado!
+
+//Además de utilizar elsey else ifpara crear condiciones más avanzadas, también puedes comprobar más de una cosa. Por ejemplo, podríamos decir "si la temperatura de hoy es superior a 20 grados Celsius pero inferior a 30, imprimir un mensaje".
+
+let temp = 25
+
+if temp > 20 {
+    if temp < 30 {
+        print("It's a nice day.")
+    }
+}
+
+//Aunque eso funciona bastante bien, Swift proporciona una alternativa más corta: podemos usar &&para combinar dos condiciones juntas, y la condición completa solo será verdadera si las dos partes dentro de la condición son verdaderas.
+
+//Entonces, podríamos cambiar nuestro código a esto:
+
+if temp > 20 && temp < 30 { // && se le como "y"
+    print("It's a nice day.")
+}
+
+let userAge = 14
+let hasParentalConsent = true
+
+if userAge >= 18 || hasParentalConsent == true { //Esto se le como "o"
+    print("You can buy the game")
+}
+
+//Recuerde que el uso == truede una condición se puede eliminar, ya que, obviamente, ya estamos comprobando un valor booleano. Por lo tanto, podríamos escribir esto en su lugar:
+
+if userAge >= 18 || hasParentalConsent {
+    print("You can buy the game")
+}
+
+//Para terminar de verificar múltiples condiciones, probemos un ejemplo más complejo que combina if, else if, elsey , ||todo al mismo tiempo, e incluso muestra cómo las enumeraciones encajan en las condiciones.
+
+//En este ejemplo, vamos a crear una enumeración llamada TransportOption, que contiene cinco casos: avión, helicóptero, bicicleta, automóvil y scooter. Luego, asignaremos un valor de ejemplo a una constante y ejecutaremos algunas comprobaciones:
+
+//Si vamos a algún lugar en avión o en helicóptero, imprimiremos “¡Vamos a volar!”
+//Si vamos en bicicleta, imprimiremos “Espero que haya un carril bici…”
+//Si vamos en coche, imprimiremos “Es hora de quedarse atrapado en el tráfico”.
+//De lo contrario, imprimiremos "¡Voy a alquilar un scooter ahora!"
+//Aquí está el código para eso:
+
+enum TransportOption {
+    case airplane, helicopter, bicycle, car, scooter
+}
+let transport = TransportOption.airplane
+
+if transport == .airplane || transport == .helicopter {
+    print("Lets fly")
+} else if transport == .bicycle{
+    print("I hope there's a bike path...")
+} else if transport == .car {
+    print("Time to get stuck in traffic")
+} else {
+    print("I'm going to hire a scooter now!")
+}
+
+/* Me gustaría destacar algunas partes de ese código:
+ 
+ Cuando establecemos el valor de , transportdebemos dejar claro que nos referimos a TransportOption.airplane. No podemos escribirlo simplemente .airplaneporque Swift no entiende que nos referimos a la TransportOptionenumeración.
+ Una vez que eso ha sucedido, no necesitamos escribir TransportOptionmás porque Swift sabe transportque debe ser algún tipo de TransportOption. Por lo tanto, podemos verificar si es igual a .airplaneen lugar de TransportOption.airplane.
+ El código que se utiliza ||para comprobar si transportes igual a .airplane o igual a .helicopter, y si alguno de ellos es verdadero, entonces la condición es verdadera y se imprime "¡A volar!".
+ Si la primera condición falla (si el modo de transporte no es .airplaneó .helicopter), se ejecuta la segunda condición: ¿el modo de transporte es .bicycle? Si es así, se imprime “Espero que haya una ciclovía…”.
+ Si no vamos en bicicleta, comprobamos si vamos en coche. Si es así, aparece impreso el mensaje “Es hora de quedarse atrapado en el tráfico”.
+ Finalmente si todas las condiciones anteriores fallan entonces elsese ejecuta el bloque, y significa que vamos en scooter.*/
