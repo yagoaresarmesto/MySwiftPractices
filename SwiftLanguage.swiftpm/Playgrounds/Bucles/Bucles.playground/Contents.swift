@@ -61,4 +61,44 @@ for _ in 1...5 {
 
 print(lyric)
 
+//Bucle while
+
+//Swift tiene un segundo tipo de bucle llamado while: si se le proporciona una condición, el whilebucle ejecutará continuamente el cuerpo del bucle hasta que la condición sea falsa.
+
+//Aunque todavía verás whilebucles de vez en cuando, no son tan comunes como forlos bucles. Por eso, quiero hablar de ellos para que sepas que existen, pero no nos detengamos demasiado en ellos, ¿de acuerdo?
+
+var countdown = 10
+
+while countdown > 0 {
+    print("\(countdown)...")
+    countdown -= 1
+}
+
+print("Blast OFF")
+
+//Los bucles while son muy útiles cuando no sabes cuántas veces se repetirá el bucle. Para demostrarlo, quiero presentarte una función muy útil que Intambos Doubletienen: random(in:). Dale un rango de números con los que trabajar y devolverá un valor aleatorio Into Doublealgún valor dentro de ese rango.
+
+let id = Int.random(in: 1...1000)
+print(id)
+
+//Y esto con un double
+let amount = Double.random(in: 0...1)
+
+//Podemos usar esta funcionalidad con un whilebucle para tirar una y otra vez algunos dados virtuales de 20 caras, finalizando el bucle solo cuando salga un 20, un golpe crítico para todos los jugadores de Dungeons & Dragons.
+
+// create an integer to store our roll
+var roll = 0
+
+// carry on looping until we reach 20
+while roll != 20 {
+    // roll a new dice and print what it was
+    roll = Int.random(in: 1...20)
+    print("I rolled a \(roll)")
+}
+
+// if we're here it means the loop ended – we got a 20!
+print("Critical hit!")
+
+//Te encontrarás usando bucles fory whileen tu propio código: forlos bucles son más comunes cuando tienes una cantidad finita de datos para revisar, como un rango o una matriz, pero whilelos bucles son realmente útiles cuando necesitas una condición personalizada.
+
 
