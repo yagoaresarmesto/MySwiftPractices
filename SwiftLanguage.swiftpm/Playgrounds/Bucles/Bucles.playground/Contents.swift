@@ -49,7 +49,7 @@ for i in 1..<5 { //Consejo: ..< es realmente útil para trabajar con matrices, d
     print("Counting 1 up to 5: \(i)")
 }
 
-//Antes de terminar con forlos bucles, hay una cosa más que quiero mencionar: a veces quieres ejecutar algún código una cierta cantidad de veces usando un rango, pero en realidad no quieres la variable de bucle; no quieres el ior j, porque no lo usas.
+//Antes de terminar con for los bucles, hay una cosa más que quiero mencionar: a veces quieres ejecutar algún código una cierta cantidad de veces usando un rango, pero en realidad no quieres la variable de bucle; no quieres el ior j, porque no lo usas.
 
 //En esta situación, puedes reemplazar la variable de bucle con un guión bajo, de la siguiente manera:
 
@@ -60,3 +60,5 @@ for _ in 1...5 {
 }
 
 print(lyric)
+
+
