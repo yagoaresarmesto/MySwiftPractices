@@ -131,7 +131,7 @@ var archivos = ["image.png", "document.txt", "presentacion.ppt", "photo.jpg", "n
 
 
 for archivo in archivos {
-    if archivo.hasSuffix(".txt") == false{
+    if archivo.hasSuffix(".txt") == false {
         continue
     }
     print(archivo)
