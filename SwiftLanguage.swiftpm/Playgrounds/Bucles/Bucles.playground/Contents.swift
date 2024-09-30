@@ -102,3 +102,51 @@ print("Critical hit!")
 //Te encontrarás usando bucles fory whileen tu propio código: forlos bucles son más comunes cuando tienes una cantidad finita de datos para revisar, como un rango o una matriz, pero whilelos bucles son realmente útiles cuando necesitas una condición personalizada.
 
 
+//Break & continue
+
+//Swift nos ofrece dos formas de omitir uno o más elementos en un bucle: continueomite la iteración actual del bucle y breakomite todas las iteraciones restantes. Al igual que whilelos bucles, a veces se utilizan, pero en la práctica mucho menos de lo que se podría pensar.
+
+let filenames = ["me.jpg", "work.txt", "sophie.jpg", "logo.psd"]
+
+for filename in filenames {
+    if filename.hasSuffix(".jpg") == false {
+        continue
+    }
+    
+    print("Found picture: \(filename)")
+}
+//Veámoslos individualmente, comenzando con continue. Cuando estás recorriendo un array de datos, Swift tomará un elemento del array y ejecutará el cuerpo del bucle usándolo. Si llamas continuedentro de ese cuerpo del bucle, Swift detendrá inmediatamente la ejecución de la iteración actual del bucle y saltará al siguiente elemento del bucle, donde continuará normalmente. Esto se usa comúnmente cerca del comienzo de los bucles, donde eliminas las variables del bucle que no pasan una prueba de tu elección.
+
+//Esto crea una matriz de cadenas de nombres de archivos, luego recorre cada una de ellas y verifica que tenga el sufijo “.jpg”, es decir, que sea una imagen. continuese utiliza con todos los nombres de archivos que no pasan esa prueba, de modo que se omite el resto del cuerpo del bucle.
+
+
+//En cuanto a break, sale de un bucle inmediatamente y omite todas las iteraciones restantes. Para demostrarlo, podríamos escribir un código para calcular 10 múltiplos comunes de dos números:
+
+let number1 = 4
+let number2 = 14
+
+var multiples = [Int]()
+
+for i in 1...100_000{
+    if i.isMultiple(of: number1) && i.isMultiple(of: number2) {
+        multiples.append(i)
+        
+        if multiples.count == 10 {
+            break
+        }
+    }
+}
+
+print(multiples)
+
+//Esto hace bastante:
+
+/*
+Crea dos constantes para contener dos números.
+Cree una variable de matriz de números enteros que almacenará múltiplos comunes de nuestros dos números.
+Cuente del 1 al 100 000 y asigne cada variable de bucle a i.
+Si ies un múltiplo del primer y del segundo número, añádalo a la matriz de enteros.
+Una vez que alcanzamos 10 múltiplos, llamamos breakpara salir del bucle.
+Imprima la matriz resultante.*/
+
+//Por lo tanto, utilícelo continuecuando desee omitir el resto de la iteración del bucle actual, y utilícelo breakcuando desee omitir todas las iteraciones restantes del bucle.
