@@ -306,3 +306,34 @@ default:
     print("A partridge in a pear tree")
 }
 
+//Condicional ternario
+//Hay una última forma de comprobar las condiciones en Swift y, cuando la veas, es probable que te preguntes cuándo resulta útil. Para ser justos, durante mucho tiempo utilicé muy pocas veces este enfoque, pero, como verás más adelante, es muy importante con SwiftUI.
+
+//El operador ternario nos permite comprobar una condición y devolver uno de dos valores: algo si la condición es verdadera y algo si es falsa.
+
+let myage = 18
+let canVote = myage >= 18 ? "Yes" : "No"
+print(canVote)
+//Cuando se ejecute ese código, canVotese establecerá en “Sí” porque ageestá configurado en 18.
+
+//Veamos otros ejemplos, comencemos con uno sencillo que lee una hora en formato de 24 horas e imprime uno de dos mensajes:
+
+let hour = 23
+print(hour < 12 ? "Its before noon" : "It's after noon") //Simplemente se imprimer el caso verdadero o falso dependiendo del valor hour
+
+//Otro ejemplo
+let names = ["Jawne", "Kaylee", "Mal"]
+let crewCount = names.isEmpty ? "No one" : "\(names.count) people"
+
+//Se vuelve un poco difícil de leer cuando tu condición suele ==verificar la igualdad, como puedes ver aquí:
+
+enum Theme {
+    case light, dark
+}
+
+let theme = Theme.dark
+
+let background = theme == .dark ? "black" : "white"
+print(background)
+
+//Ahora bien, puede que te preguntes por qué el operador ternario es útil, en particular cuando tenemos condiciones if/ regulares elsea nuestra disposición. Sé que no es una gran respuesta, pero tendrás que confiar en mí: hay ocasiones, en particular con SwiftUI, en las que no tenemos otra opción y debemos usar un operador ternario.
