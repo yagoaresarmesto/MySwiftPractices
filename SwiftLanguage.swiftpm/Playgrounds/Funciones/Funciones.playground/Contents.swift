@@ -236,3 +236,37 @@ print("Name: \(firstName2) \(lastName2)")
 
 let (firstName3, _) = getUser6()
 print("Name: \(firstName3)")
+
+
+//Personalizar parámetros
+
+//Has visto cómo a los desarrolladores de Swift les gusta nombrar los parámetros de sus funciones, porque así es más fácil recordar lo que hacen cuando se llama a la función. Por ejemplo, podríamos escribir una función para lanzar un dado una determinada cantidad de veces, utilizando parámetros para controlar la cantidad de caras del dado y la cantidad de lanzamientos:
+
+func rollDice(sides: Int, count: Int) -> [Int] {
+    //Array vacío
+    var rolls = [Int]()
+    
+    //Roll as many dice as needed
+    for _ in 1...count {
+        //Add each result to our array
+        let roll = Int.random(in: 1...sides)
+        rolls.append(roll)
+    }
+    
+    //Send back all the rolls
+    return rolls
+    
+}
+
+//Incluso si volvieras a este código seis meses después, estoy seguro de que rollDice(sides: 6, count: 4)se explica por sí solo.
+let rolls = rollDice(sides: 6, count: 4)
+print(rolls)
+
+//Si agregamos un guión bajo antes del nombre del parámetro, podemos eliminar la etiqueta del parámetro externo de la siguiente manera:
+
+func isUppercase2(_ string: String) -> Bool {
+    string == string.uppercased()
+}
+
+let string = "HELLO, WORLD"
+let result = isUppercase2(string)
