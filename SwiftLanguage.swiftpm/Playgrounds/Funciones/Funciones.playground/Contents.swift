@@ -301,4 +301,92 @@ printTimesTables3(for: 8)
 
 //Observe cómo ahora podemos llamar printTimesTables()de dos maneras diferentes: podemos proporcionar ambos parámetros para los momentos en que lo deseamos, pero si no lo hacemos (si simplemente escribimos printTimesTables(for: 8)), se usará el valor predeterminado de 12 para end.
 
+//Manejar error en funciones
 
+/*Todo el tiempo hay errores, como cuando el archivo que querías leer no existe o cuando los datos que intentabas descargar fallaron porque la red no funcionaba. Si no gestionáramos los errores con elegancia, nuestro código se bloquearía, por eso Swift nos obliga a gestionar los errores o, al menos, a reconocer cuándo pueden ocurrir.
+ 
+ Esto requiere tres pasos:
+ 
+ Informar a Swift sobre los posibles errores que pueden ocurrir.
+ Escribir una función que pueda marcar los errores si ocurren.
+ Llamar a esa función y manejar cualquier error que pueda ocurrir.
+ Trabajemos con un ejemplo completo: si el usuario nos pide que verifiquemos qué tan segura es su contraseña, marcaremos un error grave si la contraseña es demasiado corta o es obvia.
+ 
+ Por lo tanto, debemos comenzar por definir los posibles errores que podrían ocurrir. Esto significa crear una nueva enumeración que se base en Errorel tipo existente de Swift, como se muestra a continuación:*/
+
+enum PasswordError: Error {
+    case short, obvious
+}
+
+/*Eso dice que hay dos posibles errores con la contraseña: shorty obvious. No define qué significan , solo que existen.
+ 
+ El segundo paso es escribir una función que active uno de esos errores. Cuando se activa un error (o se genera en Swift), estamos diciendo que algo fatal salió mal con la función y, en lugar de continuar de manera normal, termina inmediatamente sin enviar ningún valor.
+ 
+ En nuestro caso, vamos a escribir una función que verifique la fortaleza de una contraseña: si es realmente mala (menos de 5 caracteres o es extremadamente conocida), entonces lanzaremos un error inmediatamente, pero para todas las demás cadenas devolveremos calificaciones como "OK", "Buena" o "Excelente".*/
+
+func checkPassword(_ password: String) throws -> String {
+    if password.count < 5 {
+        throw PasswordError.short
+    }
+    
+    if password == "12345" {
+        throw PasswordError.obvious
+    }
+    
+    if password.count < 8 {
+        return "Ok"
+    } else if password.count < 10 {
+        return "Good"
+    } else {
+        return "Excelent"
+    }
+}
+
+//Vamos a desglosarlo…
+
+/*Si una función puede generar errores sin manejarlos por sí misma, debe marcar la función como throwsantes del tipo de retorno.
+ No especificamos exactamente qué tipo de error arroja la función, solo que puede arrojar errores.
+ Estar marcado con throwsno significa que la función deba arrojar errores, solo que podría hacerlo.
+ Cuando llega el momento de generar un error, escribimos throwseguido de uno de nuestros PasswordErrorcasos. Esto hace que la función salga inmediatamente, lo que significa que no devolverá una cadena.
+ Si no se producen errores, la función debe comportarse normalmente: debe devolver una cadena. */
+
+//El paso final es ejecutar la función y manejar los errores que puedan ocurrir. Swift Playgrounds es bastante laxo en cuanto al manejo de errores porque está pensado principalmente para el aprendizaje, pero cuando se trata de trabajar con proyectos reales de Swift, verá que hay tres pasos:
+
+/*Iniciar un bloque de trabajo que podría generar errores, utilizando do.
+ Llamar a una o más funciones de lanzamiento, utilizando try.
+ Manejar cualquier error lanzado usando catch.
+ En pseudocódigo se ve así:*/
+
+do {
+    try checkPassword("Hola")
+} catch {
+    print("Handle errors here")
+}
+
+//Si quisiéramos escribir try que usando nuestra checkPassword()función actual, podríamos escribir esto:
+
+let string2 = "12345"
+
+do {
+    let result = try checkPassword(string2)
+    print("Password rating: \(result)")
+} catch {
+    print("There was an error")
+}
+
+//A medida que avances, verás cómo las funciones de lanzamiento están integradas en muchos de los propios marcos de Apple, por lo que, aunque quizás no las crees tú mismo, al menos necesitarás saber cómo usarlas de forma segura.
+
+//Consejo: la mayoría de los errores que genera Apple proporcionan un mensaje significativo que puedes presentarle al usuario si es necesario. Swift lo pone a disposición mediante un errorvalor que se proporciona automáticamente dentro del catchbloque y es común leerlo
+
+let string = "12345"
+
+do {
+    let result = try checkPassword(string)
+    print("Password rating: \(result)")
+} catch PasswordError.short {
+    print("Please use a longer password.")
+} catch PasswordError.obvious {
+    print("I have the same combination on my luggage!")
+} catch {
+    print("There was an error.")
+}
