@@ -269,4 +269,36 @@ func isUppercase2(_ string: String) -> Bool {
 }
 
 let string = "HELLO, WORLD"
-let result = isUppercase2(string)
+let result2 = isUppercase2(string)
+
+//Proporcionar valores predeterminados para los parámetros
+
+//Agregar parámetros a las funciones nos permite agregar puntos de personalización, de modo que las funciones puedan operar con diferentes datos según nuestras necesidades. A veces queremos que estos puntos de personalización estén disponibles para mantener la flexibilidad de nuestro código, pero otras veces no queremos pensar en ello: queremos lo mismo nueve veces de cada diez.
+
+//Por ejemplo, anteriormente vimos esta función:
+
+func printTimesTables2(for number: Int, end: Int){
+    for i in 1...end {
+        print("\(i) x \(number) is \(i * number)")
+        
+    }
+}
+
+printTimesTables2(for: 5, end: 20)
+
+//Esto imprime cualquier tabla de multiplicación, comenzando por 1 multiplicado por el número hasta cualquier punto final. Ese número siempre va a cambiar según la tabla de multiplicación que queramos, pero el punto final parece un buen lugar para proporcionar un valor predeterminado sensato: es posible que queramos contar hasta 10 o 12 la mayor parte del tiempo, aunque aún dejamos abierta la posibilidad de llegar a un valor diferente algunas veces.
+
+//Para solucionar este problema, Swift nos permite especificar valores predeterminados para cualquiera o todos nuestros parámetros. En este caso, podríamos establecer endel valor predeterminado 12, lo que significa que si no lo especificamos, se utilizará automáticamente el valor 12.
+
+func printTimesTables3(for number: Int, end: Int = 12) {
+    for i in 1...end {
+        print("\(i) x \(number) is \(i * number)")
+    }
+}
+
+printTimesTables3(for: 5, end: 20)
+printTimesTables3(for: 8)
+
+//Observe cómo ahora podemos llamar printTimesTables()de dos maneras diferentes: podemos proporcionar ambos parámetros para los momentos en que lo deseamos, pero si no lo hacemos (si simplemente escribimos printTimesTables(for: 8)), se usará el valor predeterminado de 12 para end.
+
+
