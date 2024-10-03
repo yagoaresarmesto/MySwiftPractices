@@ -378,10 +378,9 @@ do {
 
 //Consejo: la mayoría de los errores que genera Apple proporcionan un mensaje significativo que puedes presentarle al usuario si es necesario. Swift lo pone a disposición mediante un errorvalor que se proporciona automáticamente dentro del catchbloque y es común leerlo
 
-let string = "12345"
-
+let string3 = "12345"
 do {
-    let result = try checkPassword(string)
+    let result = try checkPassword(string3)
     print("Password rating: \(result)")
 } catch PasswordError.short {
     print("Please use a longer password.")
@@ -390,3 +389,118 @@ do {
 } catch {
     print("There was an error.")
 }
+
+
+//Claúsulas
+
+//Las funciones son elementos muy potentes en Swift. Sí, has visto cómo puedes llamarlas, pasarles valores y devolver datos, pero también puedes asignarlas a variables, pasarles funciones a otras funciones e incluso devolverles funciones a otras funciones.
+
+func greetUser() {
+    print("Hi there!")
+}
+
+greetUser()
+
+var greetCopy = greetUser
+greetCopy()
+
+//Esto crea una función trivial y la llama, pero luego crea una copia de esa función y la llama. Como resultado, imprimirá el mismo mensaje dos veces.
+
+//Importante: cuando copias una función, no escribes los paréntesis después de ella, sino que son var greetCopy = greetUsery no var greetCopy = greetUser(). Si colocas los paréntesis allí, estás llamando a la función y asignando su valor de retorno a otra cosa.
+
+//Pero ¿qué sucede si desea omitir la creación de una función independiente y simplemente asignar la funcionalidad directamente a una constante o variable? Bueno, resulta que también puede hacerlo:
+
+let sayHello = {
+    print("Hi there!")
+}
+
+sayHello()
+
+//Pero ¿qué sucede si desea omitir la creación de una función independiente y simplemente asignar la funcionalidad directamente a una constante o variable? Bueno, resulta que también puede hacerlo:
+
+let sayHello2 = {
+    print("Hi there!")
+}
+
+//Si quieres que el cierre acepte parámetros, estos deben estar escritos de una manera especial.
+
+let sayHello3 = {(name: String) -> String in // Es la inpalabra clave y viene directamente después de los parámetros y el tipo de retorno del cierre
+    "Hi \(name)"
+}
+
+//Mientras tanto, puede que te surja una pregunta más fundamental: “¿Por qué necesitaría estas cosas?”. Sé que los cierres parecen terriblemente oscuros. Peor aún, parecen oscuros y complicados: muchas, muchas personas realmente tienen dificultades con los cierres cuando los conocen por primera vez, porque son bestias complejas y parece que nunca van a ser útiles.
+
+//Para tener una idea de por qué los cierres son tan útiles, primero quiero presentarles los tipos de funciones . Han visto cómo los números enteros tienen el tipo Int, y los decimales tienen el tipo Double, etc., y ahora quiero que piensen en cómo las funciones también tienen tipos.
+
+//Tomemos la greetUser()función que escribimos antes: no acepta parámetros, no devuelve ningún valor y no genera errores. Si la escribiéramos como una anotación de tipo para greetCopy, escribiríamos esto:
+
+var greetCopy2: () -> Void = greetUser
+
+//Vamos a desglosarlo…
+
+//Los paréntesis vacíos marcan una función que no toma parámetros.
+//La flecha significa exactamente lo que significa cuando se crea una función: estamos a punto de declarar el tipo de retorno para la función.
+//Voidsignifica “nada”: esta función no devuelve nada. A veces, puede que veas esto escrito como (), pero normalmente lo evitamos porque puede confundirse con la lista de parámetros vacía.
+
+//El tipo de cada función depende de los datos que recibe y envía. Puede parecer simple, pero esconde un problema importante: los nombres de los datos que recibe no forman parte del tipo de la función.
+
+//Podemos demostrar esto con algo más de código:
+
+func getUserData(for id: Int) -> String {
+    if id == 1989 {
+        return "Taylor Swift"
+    }else{
+        return "Anonymous"
+    }
+}
+
+let data: (Int) -> String = getUserData
+let user7 = data(1989)
+print(user7)
+
+//Esto comienza de manera bastante sencilla: es una función que acepta un entero y devuelve una cadena. Pero cuando tomamos una copia de la función, el tipo de función no incluye el fornombre del parámetro externo, por lo que cuando se llama a la copia, usamos data(1989)en lugar de data(for: 1989)
+
+//Probablemente todavía te estés preguntando por qué todo esto es importante, y todo se aclarará pronto. ¿Recuerdas que dije que podemos usar sorted()una matriz para ordenar sus elementos?
+
+//Significa que podemos escribir código como este:
+
+let team = ["Gloria", "Suzanne", "Piper", "Tiffany", "Tasha"]
+let sortedTeam = team.sorted()
+print(sortedTeam)
+
+//Eso es realmente genial, pero ¿qué pasaría si quisiéramos controlar esa clasificación? ¿Qué pasaría si siempre quisiéramos que una persona fuera la primera porque era el capitán del equipo y que el resto se ordenara alfabéticamente?
+
+//Bueno, sorted()en realidad nos permite pasar una función de ordenación personalizada para controlar exactamente eso. Esta función debe aceptar dos cadenas y devolver verdadero si la primera cadena debe ordenarse antes que la segunda, o falso si la primera cadena debe ordenarse después de la segunda.
+
+func captainFirstSorted(name1: String, name2: String) -> Bool {
+    if name1 == "Suzanne" {
+        return true
+    } else if name2 == "Suzanne" {
+        return false
+    }
+    
+    return name1 < name2
+}
+ //Por lo tanto, si el primer nombre es Suzanne, devuelve true para que name1se ordene antes de name2. Por otro lado, si name2es Suzanne, devuelve false para que name1se ordene después de name2 . Si ninguno de los nombres es Suzanne, simplemente usa <para realizar una ordenación alfabética normal.
+
+//Como dije, sorted()se puede pasar una función para crear un orden de clasificación personalizado y, siempre que esa función a) acepte dos cadenas y b) devuelva un valor booleano, sorted()se puede usar.
+
+//Eso es exactamente lo que captainFirstSorted()hace nuestra nueva función, por lo que podemos usarla de inmediato:
+
+let captainFirstTeam = team.sorted(by: captainFirstSorted)
+
+print(captainFirstTeam)
+
+
+//Bien, escribamos un código nuevo que llame sorted()usando un cierre:
+
+let captainFirstTeam2 = team.sorted(by: { (name1: String, name2: String) -> Bool in
+    if name1 == "Suzanne" {
+        return true
+    } else if name2 == "Suzanne" {
+        return false
+    }
+
+    return name1 < name2
+})
+
