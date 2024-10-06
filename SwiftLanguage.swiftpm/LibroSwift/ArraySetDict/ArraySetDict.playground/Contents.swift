@@ -94,8 +94,172 @@ arrayOfStrings.forEach {print($0)}
 //Si intentamos modificar una colección asignada a una constante, el compilador nos retorna un error:
 
 let arrayOfStrings2: [String] = ["SwiftBeta", "SwiftUI", "SwfitUI", "Swift", "Xcode"]
-arrayOfStrings2.appent("Obejetive - C")
-arrayOfStrings2.forEach {print($0)}
+//arrayOfStrings2.appent("Obejetive - C")
+//arrayOfStrings2.forEach {print($0)} ---> salta error
 
 // error: cannot use mutating member on immutable value: 'arrayOfStrings' is a 'let' constant
 
+
+//Array
+
+//Para inicializar un Array sin ningún elemento, podemos hacerlo de varias maneras:
+
+var numbers = [Int]()
+var numbers2: [Int] = [] //Esta es la más común
+var numbers3: [Int] = .init()
+var numbers4: Array<Int> = []
+
+//Pero aparte de inicializarlo podemos asignarle un valor directamente. Vamos a ver varias maneras:
+
+var strings = Array(["Swift", "Xcode", "SwiftUI"])
+var string2 = ["Swift", "Xcode", "SwiftUI"]
+
+//En Swift tenemos propiedades y métodos que podemos usar con los Array. Por ejemplo, para saber cuántos elementos tiene un Array podemos usar la propiedad count, pero hay muchas propiedades y métodos que podemos usar. Vamos a ver algunos ejemplos:
+
+//Count
+
+//Tenemos el siguiente array
+
+var myNewSkills = ["Combine", "TDD", "SnpapshotTests", "Swift Package Manager"]
+
+print(mySkills.count) //Número de elementos de un array en este caso 4
+
+//isEmpty
+
+print(myNewSkills.isEmpty)// Devuelve true o false, en este caso false
+
+//Este tipo de condición es muy útil usarla en un if, de esta manera podemos tomar decisiones dentro de nuestro código y ejecutar una lógica u otra:
+
+if myNewSkills.isEmpty {
+    print("El array está vacío")
+}else {
+    print("El array no está vacío")
+}
+
+//FIRST, LAST
+
+//Podemos obtener el primer y último valor de un Array usando la propiedad first y last respectivamente:
+print(myNewSkills.first)
+print(myNewSkills.last) //Devuelven opcionales
+
+//En este caso estamos accediendo a estas propiedades first y last que tienen una posiciones ya definidas: el primer y último elemento. Pero podríamos acceder directamente a otras posiciones de nuestro Array, podemos usar los subscripts en Swift.
+
+//Subscripts
+
+//Los subscripts son otra forma de acceder a los elementos de una colección, son atajos para actualizar o obtener su valor. Lo único que tenemos que hacer es poner el nombre de nuestro Array seguido de [] y dentro de los corchetes añadir la posición que queremos extraer de nuestro Array. Vamos a ver un ejemplo:
+
+print(myNewSkills[2])
+print(myNewSkills[3])
+
+//Append
+
+//Ahora vamos a utilizar dos maneras diferentes para añadir valores dentro de nuestro Array myNewSkills
+
+myNewSkills.append("Tests")
+myNewSkills += ["UITableView", "UICollectionView"]
+
+print(myNewSkills)
+
+//INSERT
+
+//Otra manera de añadir valores dentro de nuestro Array es usando el método insert. Este método acepta 2 parámetros, el primer parámetro es el valor que queremos insertar en nuestro Array, y el segundo parámetro es la posición donde queremos añadirlo:
+
+myNewSkills.insert("SwiftBeta", at: 2)
+print(myNewSkills)
+
+//CONTAINS
+// Usamos el método contains para saber si un elemento está dentro de nuestro Array:
+
+let containsCombine = myNewSkills.contains(where: { $0 == "Combine"} )
+print(containsCombine)
+
+// RESULTADO 👇
+// true
+
+//REMOVEALL
+//Usamos removeAll cuando queremos borrar todos los elementos de nuestro Array. Es decir, si queremos borrar todos los elementos de nuestra colección myNewSkills haríamos lo siguiente:
+
+myNewSkills.removeAll()
+print(myNewSkills)
+
+//Set
+
+//Inicializar un set:
+
+var setNumbers = Set<Int>()
+var setNumbers2: Set<Int> = [] //Me quedo con esta
+var setNumbers3: Set<Int> = .init()
+
+//Acabamos de ver cómo crear un Set completamente vacío. Pero aparte de inicializarlo podemos asignarle un valor directamente. Vamos a ver varias maneras:
+
+var myDevices = Set(["Monitor", "Keyboard", "Laptop", "Mobile"])
+var myDevices2: Set<String> = ["Monitor", "Keyboard", "Laptop", "Mobile"]
+var myDevices3 = Set.init(["Monitor", "Keyboard", "Laptop", "Mobile"])
+
+//Si intentaremos inicializar un Set con valores repetidos, todos los valores duplicados se descartarían automáticamente:
+
+var myDevices4 = Set(["Monitor", "Monitor", "Keyboard", "Laptop", "Mobile"])
+print(myDevices4)
+
+// RESULTADO 👇
+// ["Monitor", "Keyboard", "Laptop", "Mobile"]
+
+//Acceder y Modificar un Set
+//COUNT
+
+var mySetNumbers : Set<Int> = [1, 2, 3, 4, 5]
+print(setNumbers.count)
+
+//ISEMPTY
+
+//Otra propiedad que podemos usar para saber si un Set esta vacío es la propiedad isEmpty, vamos a ver un ejemplo:
+
+if mySetNumbers.isEmpty {
+    print("Esta vacío")
+} else {
+    print("No está vacío")
+}
+
+// RESULTADO 👇
+// mySetNumbers isn't Empty
+
+//
+print(mySetNumbers.count)
+
+// RESULTADO 👇
+
+
+// FIRST
+print(mySetNumbers.first)
+
+//Como hemos dicho, los Set no tienen orden, aunque estemos pidiendo la posición first el valor que nos va a retornar siempre va a ser diferente.
+
+//INSERT
+
+mySetNumbers.insert(6)
+mySetNumbers.insert(8)
+print(mySetNumbers)
+
+//CONTAINS
+
+var containsNumberSix = mySetNumbers.contains(where: { $0 == 6 } )
+print(containsNumberSix)
+
+// RESULTADO 👇
+// true
+
+//REMOVEALL
+mySetNumbers.removeAll()
+print(mySetNumbers)
+
+// RESULTADO 👇
+// []
+
+
+//Realmente todas estas propiedades tanto en los arrays como en los y Set son muy similares. Pero tienen alguna diferencia
+
+//- En Set no existe el método append
+//- En Set podemos usar el método insert pero sin especificar una posición (en el tipo Array podemos indicar la posición).
+//- En Set no existe la propiedad last
+
+//Dictionarty
