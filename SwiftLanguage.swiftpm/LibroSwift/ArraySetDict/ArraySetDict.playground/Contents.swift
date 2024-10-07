@@ -228,7 +228,6 @@ print(mySetNumbers.count)
 
 // RESULTADO 👇
 
-
 // FIRST
 print(mySetNumbers.first)
 
@@ -262,4 +261,61 @@ print(mySetNumbers)
 //- En Set podemos usar el método insert pero sin especificar una posición (en el tipo Array podemos indicar la posición).
 //- En Set no existe la propiedad last
 
-//Dictionarty
+//Dictionary
+
+//Los Dictionary almacenan asociaciones entre claves del mismo tipo y valores del mismo tipo. Cada valor está asociado a una única clave. En este caso, al igual que los Set tampoco tenemos un orden.
+
+var myDictionary = [String: String]()
+var myDictionary2: [String: String] = .init()
+var myDictionary3: [String: String] = [:]
+
+
+//Podríamos crear un Dictionary especificando que su clave es de tipo Int y su valor de tipo Bool:
+
+var anotherDictionary = [Int: Bool]()
+
+//Inicializar un Dictionary con un valor:
+
+var myDictionaryInfo = [
+    "name": "SwiftBeta",
+    "webpage": "swiftbeta.com",
+    "skills": "Swift"
+]
+var myDictionaryInfo2 = Dictionary(dictionaryLiteral: ("name", "SwiftBeta"), ("webpage", "swiftbeta.com"), ("skills", "Swift"))
+
+//Acceder y Modificar un Dictionary
+
+//COUNT
+print(myDictionaryInfo.count)
+
+//ISEMPTY
+if myDictionaryInfo.isEmpty {
+    print("myDictionaryInfo isEmpty")
+} else {
+    print("myDictionaryInfo isn't Empty")
+}
+
+//UPDATEVALUE
+
+myDictionaryInfo.updateValue("@SwiftBeta:", forKey: "twitter")
+
+print(myDictionaryInfo)
+
+//Este método lo podemos usar también para modificar el valor de una clave que ya existe en nuestro Dictionary, vamos a modificar el actual valor de la clave webpage que es swiftbeta.com por el valor google.com:
+
+myDictionaryInfo.updateValue("google.com", forKey: "webpage")
+print(myDictionaryInfo)
+
+//Otra manera de añadir un valor a un Dictionary, es usando los subscripts (tal y como hemos visto en la sección de los Array). A continuación vamos a añadir una nueva clave con su respectivo valor:
+
+myDictionaryInfo["city"] = "Lugo"
+print(myDictionaryInfo)
+
+//REMOVEVALUE
+
+myDictionaryInfo.removeValue(forKey: "twitter")
+print(myDictionaryInfo)
+
+//También podríamos haber usado los subscripts para asignar nil a una clave y por lo tanto eliminarla del Dictionary.
+
+myDictionaryInfo["twitter"] = nil
