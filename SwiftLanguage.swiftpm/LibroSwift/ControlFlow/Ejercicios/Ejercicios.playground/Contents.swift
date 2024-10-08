@@ -8,7 +8,6 @@ if 500 > 200 {
 
 //Ahora, añade un else y añade dentro de su scope otro print. Por ejemplo puedes añadir "El número es menor"
 
-
 if 500 > 200 {
     print("El número es mayor")
 }else{
@@ -54,3 +53,73 @@ default:
 //La opcion default, porque no cumple el número de caracteres
 
 //Transforma el código del ejercicio 3 pero esta vez usando un if y else
+
+if youtubeChannel.count > 20 {
+    print("Youtube count > 20")
+}else {
+    print("Default")
+}
+
+//Itera y printa el contenido de la siguiente colección usando un for
+
+let values = ["1", "2", "3", "4", "5"]
+var contador2 = 0
+
+for value in values {
+    print(value)
+}
+
+print("______")
+//¿Qué condición hay que añadir al for para mostrar solo los números impares?
+
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+for number in numbers where number % 2 != 0{ //Tmb podría haber usado .isMultiple(of: 2)
+    print(number)
+}
+//Itera y printa las keys y valores de la siguiente colección usado un for
+
+let dictionary: [String : Any] = [
+    "name": "SwiftBeta",
+    "numberOfSubscribers": 2500,
+    "Youtube Channel": "@SwiftBeta"
+]
+
+for (key, value) in dictionary {
+    print("Key -> \(key)/ Value -> \(value)")
+}
+
+//Itera la siguiente colección usando while o repeat-while
+
+let colors = ["blue", "orange", "red", "green"]
+
+var contador = 0
+
+while contador < colors.count {
+    print(colors[contador])
+    contador += 1
+}
+
+//Con el siguiente Enum crea un switch para controlar cada case, dentro de cada case añade un print para mostrar un valor por consola.
+
+enum Device {
+    case iPhone
+    case iPad
+    case mac
+    case appleWatch
+}
+
+let device: Device = .iPhone
+
+switch device {
+case .iPhone:
+    print("Un iPhone")
+case .iPad:
+    print("Un iPad")
+case .mac:
+    print("Un mac")
+case .appleWatch:
+    print("Un appleWatch")
+}
+
+
