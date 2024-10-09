@@ -175,3 +175,31 @@ validate(names: &arrayOfNames)
 //En el anterior ejemplo hemos añadido la keyword inout para especificar que dentro del método podemos modificar el parámetro de entrada names. Y al llamar a la función, cuando le pasamos el parámetro arrayOfNames le añadimos la & justo delante.
 
 //El valor inicial de arrayOfNames era ["UIKit"] pero hemos modificado su valor dentro de la función por ["SwiftBeta", "SwiftUI", "Swift"].
+
+//Funciones dentro de funciones
+
+//En Swift podemos crear funciones dentro de funciones. Es una funcionalidad que nos permite agrupar código que está relacionado dentro de una única función.
+
+func validate(password: String) {
+    if password.count > 5 {
+        printSuccess()
+    } else {
+        printError()
+    }
+    
+    func printSuccess(){
+        print("Valid Password")
+    }
+    
+    func printError(){
+        print("Error")
+    }
+}
+
+//En este caso hemos creado una función y dentro del scope de la función hay 2 funciones, las 2 se encargan de printar por consola un mensaje en contextos diferentes. Fuera de esta función, es decir, fuera de su scope no podemos acceder a printSuccess y printError, estas funciones solo se pueden llamar desde el body de validate(password:) (fuera de esta función las funciones printSuccess y printError “no existen”).
+
+//Para llamar la función:
+
+validate(password: "SwiftBeta")
+
+
