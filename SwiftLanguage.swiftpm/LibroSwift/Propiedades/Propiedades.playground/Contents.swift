@@ -104,10 +104,10 @@ print(square.side)
 
 //como detalle curioso el parámetro newArea que hemos recibido en el set lo podríamos omitir y usar directamente newValue, vamos a verlo más claro en el siguiente código:
 /*
-set {
-    side = sqrt(newValue)
-}
-*/
+ set {
+ side = sqrt(newValue)
+ }
+ */
 
 //4. Property Observers
 
@@ -136,10 +136,67 @@ struct Database {
 var database = Database(name: "Users")
 database.name = "Students"
 
+print("_______")
+
 // RESULTADO 👇
 // Will update name Students
 // Changed name Students
 
 //Es muy útil saber cuándo una propiedad va a ser modificada o cuándo ha sido modificada para lanzar lógica dentro de tu aplicación (por ejemplo para refrescar la información que estás mostrando en una vista).
 
+//Property Wrappers
 
+//¿Qué es un property wrapper? Un property wrapper añade una capa de abstracción entre el código que administra cómo se almacena una propiedad y el código que define una propiedad.
+
+//Otra explicación sería que podemos vitaminar nuestras propiedades y darles una funcionalidad extra en su get y en su set. Esta funcionalidad está encapsulada en un nuevo tipo (Class o Struct) de esta manera la podemos reusar muy fácilmente en otras propiedades.
+
+@propertyWrapper //1
+struct UserValidation {
+    private var name: String //2
+    
+    init() {
+        self.name = ""
+    }
+    
+    var wrappedValue: String {
+        get { name }
+        set {
+            if newValue.count > 5 {
+                self.name = newValue
+                print("Valid name")
+            }else {
+                print("Error")
+            }
+        }
+    }
+}
+
+//Vamos a explicarlo por partes:
+
+/*
+ 1. Para crear un property wrapper podemos usar Struct o Class pero debemos usar la keyword @propertyWrapper
+ 2. Creamos una propiedad que almacenará el estado interno de nuestro property wrapper
+ 3. Inicializamos nuestra Struct y damos un valor a nuestra propiedad
+ 4. La variable wrappedValue es donde ocurre toda la magia, esta propiedad tiene un get para retornar el valor de la propiedad interna de UserValidation y también tiene un set, en este set se aplica cierta lógica para poder guardar el newValue obtenido en la propiedad name
+ */
+
+//Acabamos de crear, nuestro primer property wrapper, ahora vamos a usarlo en una propiedad, para hacerlo creamos una Struct y antes de declarar la variable escribimos @ seguido del property wrapper que queremos usar en nuestra propiedad, es decir hacemos lo siguiente:
+
+struct UserForm {
+    @UserValidation var userName: String
+}
+
+var userForm = UserForm()
+userForm.userName = "SwiftBeta"
+
+print(userForm.userName)
+
+//El resultado es el esperado, al añadir el valor de "SwiftBeta" obtenemos un resultado válido. Ahora si cambiamos el valor de la propiedad username por Swift vamos a ver qué ocurre:
+
+
+userForm.userName = "Swift"
+
+// RESULTADO 👇
+// Error
+
+//Se muestra un error, tal y como hemos especificado en la lógica de nuestro property wrapper (si el valor almacenado en la propiedad no es mayor de 5 caracteres entonces retornamos un error).
