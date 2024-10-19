@@ -204,3 +204,90 @@ makeCounter(withValue: 10)
 //Si te fijas este resultado no es el que esperamos. Al usar el anterior código lo que está retornando es la función de retorno. Para ejecutar la función debemos usar (), de esta manera indicamos que queremos ejecutar la función que nos retorna makeCounter, es decir:
 
 makeCounter(withValue: 10)()
+
+//Closures son reference type
+
+//Las funciones y los closures son reference type, esto significa que cuando asignas una función o un closure a una constante o variable en realidad estás asignando una referencia. Vamos a verlo más claro con un ejemplo práctico y vamos usar la misma función que vimos en la anterior sección:
+
+func makeCounter3(withValue value: Int) -> () -> Int {
+    var counter = value
+    func increment() -> Int {
+        counter += 1
+        return counter
+    }
+    return increment
+}
+
+//Ahora voy a llamar a la función makeCounter y voy a asignar su valor de retorno a 2 variables. Este valor de retorno es una función de tipo () -> Int.
+
+var counterA = makeCounter(withValue: 10)
+var counterB = counterA
+var counterC = counterB
+
+//Ahora voy a llamar a la función makeCounter y voy a asignar su valor de retorno a 2 variables. Este valor de retorno es una función de tipo () -> Int.
+
+print(counterA())
+
+//Si ahora llamamos a la función counterB ¿qué crees que vamos a obtener como resultado? ¿otra vez 11? el resultado que obtenemos es 12.
+
+print(counterB())
+print(counterC())
+
+
+//AutoClosures en Swift (@autoclosure)
+
+//Antes de finalizar el capítulo sobre closures vamos a ver los autoclosures.
+//Los autoclosures son un tipo de closure que nos permite eliminar las llaves cuando pasamos un closure como parámetro a una función.
+
+//Vamos a ver un ejemplo muy sencillo, imagina que tienes el siguiente Array:
+
+var arrayOfNumbers = ["1", "2", "3", "4", "5"]
+print(arrayOfNumbers)
+
+//Hasta aquí nada nuevo, estamos llamando a la propiedad count de un Array para que printe el número de elementos que hay dentro del Array.
+
+//Pero, podría hacer lo siguiente, podría crear un closure con la lógica de eliminar la primera posición de mi Array:
+
+let removeFirstElement = { arrayOfNumbers.remove(at: 0) }
+    
+print(arrayOfNumbers.count)
+
+// RESULTADO 👇
+// 5
+
+// En este caso estamos encapsulando un comportamiento de borrar el primer elemento del Array, lo estamos encapsulando dentro de un closure que asignamos a la constante removeFirstElement. Este closure no lo estamos ejecutando, lo tenemos referenciado en una constante para ejecutarlo más tarde. Es por eso que el print del número de elementos de arrayOfNumbers sigue siendo 5, ya que la lógica del closure no se ha ejecutado aún. Podríamos ejecutar nuestro closure y volver a comprobar el número de elementos de nuestro Array:
+
+print("Number \(removeFirstElement())!")
+print(arrayOfNumbers.count)
+
+//Ahora al ejecutarse el closure hemos eliminado la primera posición, por lo tanto al llamar a count el resultado es 4.
+
+//Este es el concepto que te quería explicar antes de entrar en detalle sobre los autoclosures.
+
+
+//Ahora vamos a crear una función que acepte un closure como parámetro de entrada. El closure va a contener la lógica de eliminar el primer número de un Array:
+
+func remove(arrayOfNumbers: [String],
+            removeFirstNumber: () -> String){
+    if arrayOfNumbers.count == 6 {
+        print("Numbers OK!")
+    } else {
+        print("Number Removed \(removeFirstNumber())!")
+    }
+}
+ //Para llamar al función podríamos hacer lo siguiente:
+
+remove(arrayOfNumbers: arrayOfNumbers, removeFirstNumber: {arrayOfNumbers.remove(at: 0)})
+
+//Pero en lugar de enviarle como parámetro un closure explícito, podríamos utilizar @autoclosure para evitar añadir las llaves y así enviarle solo la expresión, es decir, vamos a cambiar la firma de la función y vamos a añadir el @autoclosure:
+
+func remove2(arrayOfNumbers: [String],
+             removeFirstNumber: @autoclosure () -> String) {
+    if arrayOfNumbers.count == 6 {
+        print("Numbers OK!")
+    } else {
+        print("Number Removed \(removeFirstNumber())!")
+    }
+}
+
+remove2(arrayOfNumbers: arrayOfNumbers, removeFirstNumber: arrayOfNumbers.remove(at: 0))
